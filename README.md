@@ -33,7 +33,8 @@ This **Power BI dashboard** provides a deep analysis of **IMDB movie data**, hig
 2. Open it in **Power BI Desktop**.  
 3. Explore interactive visuals, filter data, and gain insights!  
 
-## **💡 Key DAX Measures Used**  
+## **💡 Key DAX Measures Used**
+### **1️⃣ Top 10 Directors by IMDb Rating**
 ```DAX
 Top_10_Directors = 
 VAR RankedDirectors = 
@@ -46,10 +47,36 @@ VAR RankedDirectors =
     )
 RETURN 
     TOPN(10, RankedDirectors, [Avg_IMDb], DESC)
-
-Revenue_IMDb_Correlation = 
-CORREL( IMDB_Movies[revenue], IMDB_Movies[imdb_score] )
 ```
+
+### **2️⃣ Revenue by Genre**
+```DAX
+Total_Revenue_By_Genre = 
+SUMMARIZE(
+    IMDB_Movies,
+    IMDB_Movies[genres],
+    "Total Revenue", SUM(IMDB_Movies[gross])
+)
+```
+
+### **3️⃣ Social Media Impact on IMDb Ratings**
+```DAX
+Social_Media_Impact = 
+CORR(IMDB_Movies[movie_facebook_likes], IMDB_Movies[imdb_score])
+```
+
+### **4️⃣ Budget vs. Gross Revenue by Director**
+```DAX
+Budget_vs_Revenue = 
+SUMMARIZE(
+    IMDB_Movies,
+    IMDB_Movies[director_name],
+    "Total Budget", SUM(IMDB_Movies[budget]),
+    "Total Gross", SUM(IMDB_Movies[gross])
+)
+```
+I'm always looking to improve! Feel free to **connect with me on LinkedIn** and share your thoughts. 🚀  
+📌 **LinkedIn:** [https://www.linkedin.com/in/asmita-gore-147405350/]  
 
 ## **📎 Additional Enhancements**  
 - **Interactive filters** for Year, Genre, and Director.  
